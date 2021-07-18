@@ -5,6 +5,7 @@ export default function PassiveIncomeCalculator() {
   const [apr, setApr] = useState(0);
   const [capital, setCapital] = useState(0);
   const [income, setIncome] = useState(0);
+  const [fixed, setFixed] = useState("apr");
 
   useEffect(() => {
     console.log("capital: ", capital);
@@ -17,15 +18,21 @@ export default function PassiveIncomeCalculator() {
   });
 
   const changeCapital = ev => {
-    setCapital(numericValue(ev.target.value));
+    if (fixed !== "capital") {
+      setCapital(numericValue(ev.target.value));
+    }
   }
 
   const changeIncome = ev => {
-    setIncome(numericValue(ev.target.value));
+    if (fixed !== "income") {
+      setIncome(numericValue(ev.target.value));
+    }
   }
 
   const changeApr = ev => {
-    setApr(numericValue(ev.target.value));
+    if (fixed !== "apr") {
+      setApr(numericValue(ev.target.value));
+    }
   }
 
   const numericValue = value => {
@@ -37,9 +44,31 @@ export default function PassiveIncomeCalculator() {
 
   return (
     <div>
-      <TextInput name="capital" label="Capital ($)" value={capital} onChange={changeCapital} />
-      <TextInput name="apr" label="APR (%)" value={apr} onChange={changeApr} />
-      <TextInput name="income" label="Income ($/month)" value={income} onChange={changeIncome} />
+
+      <TextInput
+        name="capital"
+        label="Capital ($)"
+        value={capital}
+        onChange={changeCapital}
+        isFixed={fixed === "capital"}
+      />
+
+      <TextInput
+        name="apr"
+        label="APR (%)"
+        value={apr}
+        onChange={changeApr}
+        isFixed={fixed === "apr"}
+      />
+
+      <TextInput
+        name="income"
+        label="Income ($/month)"
+        value={income}
+        onChange={changeIncome}
+        isFixed={fixed === "income"}
+      />
+
     </div>
   );
 }
