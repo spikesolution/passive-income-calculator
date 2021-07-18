@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 
 export default function PassiveIncomeCalculator() {
   const [apr, setApr] = useState(10);
-  const [capital, setCapital] = useState(0);
+  const [capital, setCapital] = useState(400000);
   const [income, setIncome] = useState(0);
 
-  const [fixed, setFixed] = useState("apr"); // Which value is "locked"?
+  const [fixed, setFixed] = useState("capital"); // Which value is "locked"?
   const [changed, setChanged] = useState(null); // Which value did the user change?
 
   useEffect(() => {
+    if (changed === null) return;
     calculateIncome();
     calculateApr();
     calculateCapital();
@@ -28,7 +29,9 @@ export default function PassiveIncomeCalculator() {
   const calculateApr = () => {
     if (fixed === "apr" || changed === "apr") return;
 
-    console.log("calculateApr");
+    const yearlyIncome = income * 12;
+    const requiredApr = 100 * (yearlyIncome / capital);
+    setApr(requiredApr);
   }
 
   // How much capital do we need to get a target monthly income from a given
