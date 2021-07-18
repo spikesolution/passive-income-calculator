@@ -73,7 +73,7 @@ export default function PassiveIncomeCalculator() {
   }
 
   return (
-    <div>
+    <div className="w-full">
 
       <TextInput
         name="capital"
@@ -81,6 +81,7 @@ export default function PassiveIncomeCalculator() {
         value={capital}
         onChange={changeCapital}
         isFixed={fixed === "capital"}
+        buttonClick={() => setFixed("capital")}
       />
 
       <TextInput
@@ -89,6 +90,7 @@ export default function PassiveIncomeCalculator() {
         value={apr}
         onChange={changeApr}
         isFixed={fixed === "apr"}
+        buttonClick={() => setFixed("apr")}
       />
 
       <TextInput
@@ -97,6 +99,7 @@ export default function PassiveIncomeCalculator() {
         value={income}
         onChange={changeIncome}
         isFixed={fixed === "income"}
+        buttonClick={() => setFixed("income")}
       />
 
     </div>
